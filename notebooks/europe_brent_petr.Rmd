@@ -1,0 +1,202 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(gganimate)
+library(transformr)
+```
+
+
+```{r}
+# Define o locale com vírgula como marcador decimal
+my_locale <- locale(decimal_mark = ",")
+
+# Lê o arquivo CSV com a configuração de locale definida
+df <- read_csv("../data/ebsp.csv", locale = my_locale)
+df$t <- as.Date(df$t, format="%b. %d, %Y", tz="UTC")
+
+df %>% head(5)
+```
+
+```{r}
+p = df %>%
+  ggplot(aes(x = t, y = price)) +
+  geom_line(color = "blue", size = 1) +
+  labs(
+    title = "Preço à Vista do Petróleo Brent na Europa (FOB)",
+    subtitle = "Uma visualização da série temporal do benchmark global de petróleo",
+    x = "Data",
+    y = "Preço em USD",
+    caption = "Fonte: EUROPE BRENT SPOT PRICE FOB"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title.x = element_text(face = "bold", color = "black"),
+    axis.title.y = element_text(face = "bold", color = "black"),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_blank()
+  ) 
+
+ggsave(filename = "../imagens/brent.png", plot = p, width = 10, height = 6, dpi = 300)
+
+```
+
+# Drift Abrupto
+
+```{r}
+add_abrupt_drift <- function(data, date="2000-05-22", magnitude=50) {
+  #' Add an abrupt drift to the time series.
+  #'
+  #' @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
+  #' @param date A character string representing the start date for the abrupt drift in the format "YYYY-MM-DD".
+  #' @param magnitude A numeric value representing the magnitude of the abrupt drift.
+  #' 
+  #' @return A dataframe with the updated time series.
+  index <- which(data$t == as.Date(date, format="%Y-%m-%d"))
+  data$price[index:nrow(data)] <- data$price[index:nrow(data)] + magnitude
+  return(data)
+}
+
+
+p = df %>% 
+  add_abrupt_drift(date="2000-05-22", magnitude=50) %>%
+  ggplot(aes(x = t, y = price)) +
+  geom_line(color = "blue", size = 1) +
+  geom_vline(aes(xintercept = as.Date("2000-05-22")), linetype="dashed", color = "red", size = 1) + # Linha vertical no drift
+  annotate("text", x=as.Date("2000-05-24"), y=max(df$price) - 30, label="Drift Abrupto", color = "red") + # Anotação
+  labs(
+    title = "Preço à Vista do Petróleo Brent na Europa (FOB)",
+    subtitle = "Incluindo um drift abrupto em 2000",
+    x = "Data",
+    y = "Preço em USD",
+    caption = "Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title.x = element_text(face = "bold", color = "black"),
+    axis.title.y = element_text(face = "bold", color = "black"),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave(filename = "../imagens/brent_abrupto.png", plot = p, width = 10, height = 6, dpi = 300)
+```
+
+# Drift Incremental
+
+```{r}
+add_incremental_drift <- function(data, start_date="1987-05-20", end_date="1987-05-25", magnitude=50) {
+  #' Add an incremental drift to the time series.
+  #'
+  #' @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
+  #' @param start_date A character string representing the start date for the incremental drift in the format "YYYY-MM-DD".
+  #' @param end_date A character string representing the end date for the incremental drift in the format "YYYY-MM-DD".
+  #' @param magnitude A numeric value representing the magnitude of the incremental drift.
+  #' 
+  #' @return A dataframe with the updated time series.
+  start_index <- which(data$t == as.Date(start_date, format="%Y-%m-%d"))
+  end_index <- which(data$t == as.Date(end_date, format="%Y-%m-%d"))
+  
+  drift <- seq(0, magnitude, length.out=(end_index - start_index + 1))
+  data$price[start_index:end_index] <- data$price[start_index:end_index] + drift
+  return(data)
+}
+
+df_with_drift <- df %>% add_incremental_drift(start_date="1987-05-20", end_date="2000-05-22", magnitude=50)
+
+p = ggplot(df_with_drift, aes(x = t, y = price)) +
+  geom_line(aes(y = df$price), color = "grey50", size = 1) +  # série original
+  geom_line(color = "blue", size = 1) +  # série com drift
+  geom_vline(xintercept = as.numeric(as.Date("1987-05-20")), linetype="dotted", color = "red", size=0.7) +  # início do drift
+  geom_vline(xintercept = as.numeric(as.Date("2000-05-22")), linetype="dotted", color = "red", size=0.7) +  # fim do drift
+  annotate("text", x=as.Date("1987-05-23"), y=max(df$price) - 30, label="Início", color = "red") +
+  annotate("text", x=as.Date("2000-05-20"), y=max(df$price) - 30, label="Fim do Drift", color = "red") +
+  labs(
+    title = "Preço à Vista do Petróleo Brent na Europa (FOB)",
+    subtitle = "Incluindo um drift incremental de 1987 a 2000",
+    x = "Data",
+    y = "Preço em USD",
+    caption = "Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title.x = element_text(face = "bold", color = "black"),
+    axis.title.y = element_text(face = "bold", color = "black"),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave(filename = "../imagens/brent_incremental.png", plot = p, width = 10, height = 6, dpi = 300)
+```
+
+
+```{r}
+add_recurrent_drift <- function(data, start_date="1987-05-20", period=2, duration=1, magnitude=20) {
+  #' Add a recurrent drift to the time series.
+  #'
+  #' @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
+  #' @param start_date A character string representing the start date for the recurrent drift in the format "YYYY-MM-DD".
+  #' @param period A numeric value indicating the recurrence period of the drift.
+  #' @param duration A numeric value indicating how many consecutive days the drift should last.
+  #' @param magnitude A numeric value representing the magnitude of the recurrent drift.
+  #' 
+  #' @return A dataframe with the updated time series.
+  start_index <- which(data$t == as.Date(start_date, format="%Y-%m-%d"))
+  
+  while((start_index + duration - 1) <= nrow(data)) {
+    # Printando as datas em que o drift está sendo aplicado
+    cat("Applying drift from date:", as.character(data$t[start_index]), "to date:", as.character(data$t[start_index + duration - 1]), "\n")
+    
+    data$price[start_index:(start_index + duration - 1)] <- data$price[start_index:(start_index + duration - 1)] + magnitude
+    start_index <- start_index + period
+  }
+  
+  return(data)
+}
+
+
+# Aplicar drift recorrente com período de 5 anos e duração de 6 meses
+df_with_drift <- df %>% add_recurrent_drift(start_date="1987-05-20", period=(5*365), duration=180, magnitude=20)
+
+# Datas exatas dos inícios e términos dos drifts
+start_dates <- as.Date(c("1987-05-20", "1994-07-15", "2001-10-05", "2008-11-26", "2016-02-29"))
+end_dates <- as.Date(c("1988-02-02", "1995-03-29", "2002-06-21", "2009-08-14", "2016-11-08"))
+
+# Plotar
+p = ggplot(df_with_drift, aes(x = t, y = price)) +
+  geom_line(aes(y = df$price), color = "grey50", size = 1) +  # série original
+  geom_line(color = "blue", size = 1) +  # série com drift
+  geom_vline(xintercept = as.numeric(start_dates), linetype="dotted", color = "red", size=0.7) +  # início dos drifts
+  geom_vline(xintercept = as.numeric(end_dates), linetype="dotted", color = "red", size=0.7) +  # fim dos drifts
+  annotate("text", x=as.Date("1990-01-01"), y=max(df_with_drift$price) - 20, label="Drifts a cada 5 anos", color = "red") +
+  labs(
+    title = "Preço à Vista do Petróleo Brent na Europa (FOB)",
+    subtitle = "Comparando a série original e a série com drifts recorrentes a cada 5 anos",
+    x = "Data",
+    y = "Preço em USD",
+    caption = "Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title.x = element_text(face = "bold", color = "black"),
+    axis.title.y = element_text(face = "bold", color = "black"),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave(filename = "../imagens/brent_recorrente.png", plot = p, width = 10, height = 6, dpi = 300)
+```
+
+
+
