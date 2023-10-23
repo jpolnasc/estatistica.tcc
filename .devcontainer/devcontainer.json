@@ -1,0 +1,19 @@
+{
+    "name": "Algoritmos de Aprendizado Online para Previsão de Séries Temporais",
+    "dockerFile": "Dockerfile",
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "build": {
+        "docker": {
+            "buildx": false
+        }
+    },
+    "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "yhat.r-language",
+        "RandomFractalsInc.vscode-data-preview",
+        "reditorsupport.r"
+    ]
+}
