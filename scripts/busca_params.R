@@ -21,6 +21,8 @@ extract_arima_params <- function(data, window_size = 365, step_size = 30, N = nr
   for(start in seq(1, nrow(data) - window_size, by = step_size)) {
     end <- start + window_size - 1
     
+    print(start)
+
     # Certificar de que a janela não exceda o limite de N
     end <- min(end, N)
     
@@ -36,6 +38,9 @@ extract_arima_params <- function(data, window_size = 365, step_size = 30, N = nr
     } else {
       # Extrair os coeficientes em um tibble
       ar_params <- enframe(arima_model$coef, name = "coef_name", value = "coef_value")
+
+      d <- arimaorder(arima_model)[2]
+
       # Adicionando a Variancia do termo aleatorio
       sigma2 <- var(residuals(arima_model))
       # Adicionando as datas de início e fim
@@ -48,6 +53,7 @@ extract_arima_params <- function(data, window_size = 365, step_size = 30, N = nr
       ar_params$sigma2 = sigma2
       ar_params$start_date = start_date
       ar_params$end_date = end_date
+      ar_params$order = d
       # Adicionar os parâmetros à lista
       param_list[[length(param_list) + 1]] <- ar_params
       
@@ -61,16 +67,24 @@ extract_arima_params <- function(data, window_size = 365, step_size = 30, N = nr
   # Criar o data frame final com todas as colunas necessárias
   print(max_p)
   print(max_q)
-  all_cols <- c(paste0("ar", seq_len(max_p)), paste0("ma", seq_len(max_q)), "sigma2", "start_date", "end_date")
+  if (max_q > 0){
+    all_cols <- c(paste0("ar", seq_len(max_p)), paste0("ma", seq_len(max_q)), "sigma2", "start_date", "order" ,"end_date")
+  }else{
+    all_cols <- c(paste0("ar", seq_len(max_p)), "sigma2", "start_date", "order" ,"end_date")
+  }
+  
   param_df <- bind_rows(param_list) %>%
     select(all_of(all_cols))
   
   return(param_df)
 }
 
+
+ws = 30
+ss = 1
+
 df <- read_csv("/workspaces/estatistica.tcc/data/ebsp_clean.csv")
 df$t <- as.Date(df$t, format="%b. %d, %Y", tz="UTC")
-arima_params <- extract_arima_params(df, window_size = 365, step_size = 30)
-
+arima_params <- extract_arima_params(df, window_size = ws, step_size = ss)
 # Exportar os parâmetros para um arquivo CSV
 write.csv(arima_params, "/workspaces/estatistica.tcc/data/arima_parameters.csv", row.names = FALSE)

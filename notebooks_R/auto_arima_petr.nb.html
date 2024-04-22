@@ -1511,7 +1511,7 @@ window.initializeCodeFolding = function(show) {
     $(this).detach().appendTo(div);
 
     // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Show') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
     showCodeButton.append(showCodeText);
     showCodeButton
@@ -1537,7 +1537,7 @@ window.initializeCodeFolding = function(show) {
     //   * Change text
     //   * add a class for intermediate states styling
     div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
+      showCodeText.text('Show');
       showCodeButton.addClass('btn-collapsing');
     });
     div.on('hidden.bs.collapse', function () {
@@ -1756,236 +1756,80 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEZWZpbmUgbyBsb2NhbGUgY29tIHbDrXJndWxhIGNvbW8gbWFyY2Fkb3IgZGVjaW1hbFxubXlfbG9jYWxlIDwtIGxvY2FsZShkZWNpbWFsX21hcmsgPSBcIixcIilcblxuIyBMw6ogbyBhcnF1aXZvIENTViBjb20gYSBjb25maWd1cmHDp8OjbyBkZSBsb2NhbGUgZGVmaW5pZGFcbmRmIDwtIHJlYWRfY3N2KFwiLi4vZGF0YS9lYnNwLmNzdlwiLCBsb2NhbGUgPSBteV9sb2NhbGUpXG5gYGAifQ== -->
-<pre class="r"><code># Define o locale com vírgula como marcador decimal
-my_locale &lt;- locale(decimal_mark = &quot;,&quot;)
-
-# Lê o arquivo CSV com a configuração de locale definida
-df &lt;- read_csv(&quot;../data/ebsp.csv&quot;, locale = my_locale)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjpbImRmIDwtIHJlYWRfY3N2KFwiL3dvcmtzcGFjZXMvZXN0YXRpc3RpY2EudGNjL2RhdGEvZWJzcF9jbGVhbi5jc3ZcIikiLCJkZiR0IDwtIGFzLkRhdGUoZGYkdCwgZm9ybWF0PVwiJWIuICVkLCAlWVwiLCB0ej1cIlVUQ1wiKSIsImRmICU+JSBoZWFkKCkiXX0= -->
+<pre class="r"><code>df &lt;- read_csv(&quot;/workspaces/estatistica.tcc/data/ebsp_clean.csv&quot;)
+df$t &lt;- as.Date(df$t, format=&quot;%b. %d, %Y&quot;, tz=&quot;UTC&quot;)
+df %&gt;% head()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogOTIyNSBDb2x1bW5zOiAy4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICgxKTogdFxuZGJsICgxKTogcHJpY2VcbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
-<pre><code>Rows: 9225 Columns: 2── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (1): t
-dbl (1): price
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYkdCA8LSBhcy5EYXRlKGRmJHQsIGZvcm1hdD1cIiViLiAlZCwgJVlcIiwgdHo9XCJVVENcIilcblxuZGYgJT4lIGhlYWQoNSlcbmBgYCJ9 -->
-<pre class="r"><code>df$t &lt;- as.Date(df$t, format=&quot;%b. %d, %Y&quot;, tz=&quot;UTC&quot;)
-
-df %&gt;% head(5)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI1IMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFSUzA3RE1CQ2RPakdvbGxxUTRCckpJbVhCMG9zSzlnaWtiazFxSUNMWVZlSUt4SW9EY0FIWWNRSFdQVVNMQkRmZ0hFZ040OXFXV285a3ovak56SnVQTDhhVEVac3dBRWdnSlFra0ZFMmdWNWRuMlNrZ2dvOGVwTkMzK2dtRGp0QkFNQm5hS0w1WTJtamdpNVhYWDE1L2UvMERUbmFJYUZtTHRrWGpjQXRNeDhKSTFHczhqcno0T1A4OGZ2N2xSVHV5d292WEpjcUtGMjlXM29NL0psZmlRUVp5RWxvM3dUdHJxbEpHS2YxR1ArWWhiV0RUWHZEcXV1N1BCWkl1NnBWTmhSSDVUWU1wcnVNZHVuMDlNNVZXU0Vic3RtaVUzR3NpNEdDdWJQRnBWdDdOMVgxMllndHMzRTRHM3FaYk5uRWxrOUFZOVZSN1V0MVdTb1poYTNFdGEvOFk0cENiR1hOY2dRcjdZSWkydWRGR2hEaFc2am9nN2pmVy8yMEhzM3drQWdBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["t"],"name":[1],"type":["date"],"align":["right"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1987-05-20","2":"18.63"},{"1":"1987-05-21","2":"18.45"},{"1":"1987-05-22","2":"18.55"},{"1":"1987-05-25","2":"18.60"},{"1":"1987-05-26","2":"18.63"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
+{"columns":[{"label":["t"],"name":[1],"type":["date"],"align":["right"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1987-05-20","2":"18.63"},{"1":"1987-05-21","2":"18.45"},{"1":"1987-05-22","2":"18.55"},{"1":"1987-05-25","2":"18.60"},{"1":"1987-05-26","2":"18.63"},{"1":"1987-05-27","2":"18.60"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucCA9IGRmICU+JVxuICBnZ3Bsb3QoYWVzKHggPSB0LCB5ID0gcHJpY2UpKSArXG4gIGdlb21fbGluZShjb2xvciA9IFwiYmx1ZVwiLCBzaXplID0gMSkgK1xuICBsYWJzKFxuICAgIHRpdGxlID0gXCJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKVwiLFxuICAgIHN1YnRpdGxlID0gXCJVbWEgdmlzdWFsaXphw6fDo28gZGEgc8OpcmllIHRlbXBvcmFsIGRvIGJlbmNobWFyayBnbG9iYWwgZGUgcGV0csOzbGVvXCIsXG4gICAgeCA9IFwiRGF0YVwiLFxuICAgIHkgPSBcIlByZcOnbyBlbSBVU0RcIixcbiAgICBjYXB0aW9uID0gXCJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CXCJcbiAgKSArXG4gIHRoZW1lX21pbmltYWwoKSArXG4gIHRoZW1lKFxuICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoZmFjZSA9IFwiYm9sZFwiLCBoanVzdCA9IDAuNSksXG4gICAgcGxvdC5zdWJ0aXRsZSA9IGVsZW1lbnRfdGV4dChoanVzdCA9IDAuNSksXG4gICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF90ZXh0KGZhY2UgPSBcImJvbGRcIiwgY29sb3IgPSBcImJsYWNrXCIpLFxuICAgIGF4aXMudGl0bGUueSA9IGVsZW1lbnRfdGV4dChmYWNlID0gXCJib2xkXCIsIGNvbG9yID0gXCJibGFja1wiKSxcbiAgICBwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9saW5lKGNvbG9yID0gXCJncmV5OTBcIiksXG4gICAgcGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKVxuICApIFxuXG5nZ3NhdmUoZmlsZW5hbWUgPSBcImJyZW50LnBuZ1wiLCBwbG90ID0gcCwgd2lkdGggPSAxMCwgaGVpZ2h0ID0gNiwgZHBpID0gMzAwKVxuXG5gYGAifQ== -->
-<pre class="r"><code>p = df %&gt;%
-  ggplot(aes(x = t, y = price)) +
-  geom_line(color = &quot;blue&quot;, size = 1) +
-  labs(
-    title = &quot;Preço à Vista do Petróleo Brent na Europa (FOB)&quot;,
-    subtitle = &quot;Uma visualização da série temporal do benchmark global de petróleo&quot;,
-    x = &quot;Data&quot;,
-    y = &quot;Preço em USD&quot;,
-    caption = &quot;Fonte: EUROPE BRENT SPOT PRICE FOB&quot;
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5),
-    axis.title.x = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    axis.title.y = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    panel.grid.major = element_line(color = &quot;grey90&quot;),
-    panel.grid.minor = element_blank()
-  ) 
-
-ggsave(filename = &quot;brent.png&quot;, plot = p, width = 10, height = 6, dpi = 300)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="drift-abrupto" class="section level1">
-<h1>Drift Abrupto</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRkX2FicnVwdF9kcmlmdCA8LSBmdW5jdGlvbihkYXRhLCBkYXRlPVwiMjAwMC0wNS0yMlwiLCBtYWduaXR1ZGU9NTApIHtcbiAgIycgQWRkIGFuIGFicnVwdCBkcmlmdCB0byB0aGUgdGltZSBzZXJpZXMuXG4gICMnXG4gICMnIEBwYXJhbSBkYXRhIEEgZGF0YWZyYW1lIGNvbnRhaW5pbmcgdGhlIHRpbWUgc2VyaWVzIGRhdGEgd2l0aCBjb2x1bW5zIGB0YCAoZGF0ZXMpIGFuZCBgcHJpY2VgICh2YWx1ZXMpLlxuICAjJyBAcGFyYW0gZGF0ZSBBIGNoYXJhY3RlciBzdHJpbmcgcmVwcmVzZW50aW5nIHRoZSBzdGFydCBkYXRlIGZvciB0aGUgYWJydXB0IGRyaWZ0IGluIHRoZSBmb3JtYXQgXCJZWVlZLU1NLUREXCIuXG4gICMnIEBwYXJhbSBtYWduaXR1ZGUgQSBudW1lcmljIHZhbHVlIHJlcHJlc2VudGluZyB0aGUgbWFnbml0dWRlIG9mIHRoZSBhYnJ1cHQgZHJpZnQuXG4gICMnIFxuICAjJyBAcmV0dXJuIEEgZGF0YWZyYW1lIHdpdGggdGhlIHVwZGF0ZWQgdGltZSBzZXJpZXMuXG4gIGluZGV4IDwtIHdoaWNoKGRhdGEkdCA9PSBhcy5EYXRlKGRhdGUsIGZvcm1hdD1cIiVZLSVtLSVkXCIpKVxuICBkYXRhJHByaWNlW2luZGV4Om5yb3coZGF0YSldIDwtIGRhdGEkcHJpY2VbaW5kZXg6bnJvdyhkYXRhKV0gKyBtYWduaXR1ZGVcbiAgcmV0dXJuKGRhdGEpXG59XG5cblxucCA9IGRmICU+JSBcbiAgYWRkX2FicnVwdF9kcmlmdChkYXRlPVwiMjAwMC0wNS0yMlwiLCBtYWduaXR1ZGU9NTApICU+JVxuICBnZ3Bsb3QoYWVzKHggPSB0LCB5ID0gcHJpY2UpKSArXG4gIGdlb21fbGluZShjb2xvciA9IFwiYmx1ZVwiLCBzaXplID0gMSkgK1xuICBnZW9tX3ZsaW5lKGFlcyh4aW50ZXJjZXB0ID0gYXMuRGF0ZShcIjIwMDAtMDUtMjJcIikpLCBsaW5ldHlwZT1cImRhc2hlZFwiLCBjb2xvciA9IFwicmVkXCIsIHNpemUgPSAxKSArICMgTGluaGEgdmVydGljYWwgbm8gZHJpZnRcbiAgYW5ub3RhdGUoXCJ0ZXh0XCIsIHg9YXMuRGF0ZShcIjIwMDAtMDUtMjRcIiksIHk9bWF4KGRmJHByaWNlKSAtIDMwLCBsYWJlbD1cIkRyaWZ0IEFicnVwdG9cIiwgY29sb3IgPSBcInJlZFwiKSArICMgQW5vdGHDp8Ojb1xuICBsYWJzKFxuICAgIHRpdGxlID0gXCJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKVwiLFxuICAgIHN1YnRpdGxlID0gXCJJbmNsdWluZG8gdW0gZHJpZnQgYWJydXB0byBlbSAyMDAwXCIsXG4gICAgeCA9IFwiRGF0YVwiLFxuICAgIHkgPSBcIlByZcOnbyBlbSBVU0RcIixcbiAgICBjYXB0aW9uID0gXCJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIGNvbSBzaW11bGHDp8OjbyBkZSBkcmlmdFwiXG4gICkgK1xuICB0aGVtZV9taW5pbWFsKCkgK1xuICB0aGVtZShcbiAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSBcImJvbGRcIiwgaGp1c3QgPSAwLjUpLFxuICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpLFxuICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChmYWNlID0gXCJib2xkXCIsIGNvbG9yID0gXCJibGFja1wiKSxcbiAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQoZmFjZSA9IFwiYm9sZFwiLCBjb2xvciA9IFwiYmxhY2tcIiksXG4gICAgcGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfbGluZShjb2xvciA9IFwiZ3JleTkwXCIpLFxuICAgIHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKClcbiAgKVxuXG5nZ3NhdmUoZmlsZW5hbWUgPSBcImJyZW50X2FicnVwdG8ucG5nXCIsIHBsb3QgPSBwLCB3aWR0aCA9IDEwLCBoZWlnaHQgPSA2LCBkcGkgPSAzMDApXG5gYGAifQ== -->
-<pre class="r"><code>add_abrupt_drift &lt;- function(data, date=&quot;2000-05-22&quot;, magnitude=50) {
-  #&#39; Add an abrupt drift to the time series.
-  #&#39;
-  #&#39; @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
-  #&#39; @param date A character string representing the start date for the abrupt drift in the format &quot;YYYY-MM-DD&quot;.
-  #&#39; @param magnitude A numeric value representing the magnitude of the abrupt drift.
-  #&#39; 
-  #&#39; @return A dataframe with the updated time series.
-  index &lt;- which(data$t == as.Date(date, format=&quot;%Y-%m-%d&quot;))
-  data$price[index:nrow(data)] &lt;- data$price[index:nrow(data)] + magnitude
-  return(data)
-}
-
-
-p = df %&gt;% 
-  add_abrupt_drift(date=&quot;2000-05-22&quot;, magnitude=50) %&gt;%
-  ggplot(aes(x = t, y = price)) +
-  geom_line(color = &quot;blue&quot;, size = 1) +
-  geom_vline(aes(xintercept = as.Date(&quot;2000-05-22&quot;)), linetype=&quot;dashed&quot;, color = &quot;red&quot;, size = 1) + # Linha vertical no drift
-  annotate(&quot;text&quot;, x=as.Date(&quot;2000-05-24&quot;), y=max(df$price) - 30, label=&quot;Drift Abrupto&quot;, color = &quot;red&quot;) + # Anotação
-  labs(
-    title = &quot;Preço à Vista do Petróleo Brent na Europa (FOB)&quot;,
-    subtitle = &quot;Incluindo um drift abrupto em 2000&quot;,
-    x = &quot;Data&quot;,
-    y = &quot;Preço em USD&quot;,
-    caption = &quot;Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift&quot;
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5),
-    axis.title.x = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    axis.title.y = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    panel.grid.major = element_line(color = &quot;grey90&quot;),
-    panel.grid.minor = element_blank()
-  )
-
-ggsave(filename = &quot;brent_abrupto.png&quot;, plot = p, width = 10, height = 6, dpi = 300)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="drift-incremental" class="section level1">
-<h1>Drift Incremental</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRkX2luY3JlbWVudGFsX2RyaWZ0IDwtIGZ1bmN0aW9uKGRhdGEsIHN0YXJ0X2RhdGU9XCIxOTg3LTA1LTIwXCIsIGVuZF9kYXRlPVwiMTk4Ny0wNS0yNVwiLCBtYWduaXR1ZGU9NTApIHtcbiAgIycgQWRkIGFuIGluY3JlbWVudGFsIGRyaWZ0IHRvIHRoZSB0aW1lIHNlcmllcy5cbiAgIydcbiAgIycgQHBhcmFtIGRhdGEgQSBkYXRhZnJhbWUgY29udGFpbmluZyB0aGUgdGltZSBzZXJpZXMgZGF0YSB3aXRoIGNvbHVtbnMgYHRgIChkYXRlcykgYW5kIGBwcmljZWAgKHZhbHVlcykuXG4gICMnIEBwYXJhbSBzdGFydF9kYXRlIEEgY2hhcmFjdGVyIHN0cmluZyByZXByZXNlbnRpbmcgdGhlIHN0YXJ0IGRhdGUgZm9yIHRoZSBpbmNyZW1lbnRhbCBkcmlmdCBpbiB0aGUgZm9ybWF0IFwiWVlZWS1NTS1ERFwiLlxuICAjJyBAcGFyYW0gZW5kX2RhdGUgQSBjaGFyYWN0ZXIgc3RyaW5nIHJlcHJlc2VudGluZyB0aGUgZW5kIGRhdGUgZm9yIHRoZSBpbmNyZW1lbnRhbCBkcmlmdCBpbiB0aGUgZm9ybWF0IFwiWVlZWS1NTS1ERFwiLlxuICAjJyBAcGFyYW0gbWFnbml0dWRlIEEgbnVtZXJpYyB2YWx1ZSByZXByZXNlbnRpbmcgdGhlIG1hZ25pdHVkZSBvZiB0aGUgaW5jcmVtZW50YWwgZHJpZnQuXG4gICMnIFxuICAjJyBAcmV0dXJuIEEgZGF0YWZyYW1lIHdpdGggdGhlIHVwZGF0ZWQgdGltZSBzZXJpZXMuXG4gIHN0YXJ0X2luZGV4IDwtIHdoaWNoKGRhdGEkdCA9PSBhcy5EYXRlKHN0YXJ0X2RhdGUsIGZvcm1hdD1cIiVZLSVtLSVkXCIpKVxuICBlbmRfaW5kZXggPC0gd2hpY2goZGF0YSR0ID09IGFzLkRhdGUoZW5kX2RhdGUsIGZvcm1hdD1cIiVZLSVtLSVkXCIpKVxuICBcbiAgZHJpZnQgPC0gc2VxKDAsIG1hZ25pdHVkZSwgbGVuZ3RoLm91dD0oZW5kX2luZGV4IC0gc3RhcnRfaW5kZXggKyAxKSlcbiAgZGF0YSRwcmljZVtzdGFydF9pbmRleDplbmRfaW5kZXhdIDwtIGRhdGEkcHJpY2Vbc3RhcnRfaW5kZXg6ZW5kX2luZGV4XSArIGRyaWZ0XG4gIHJldHVybihkYXRhKVxufVxuXG5kZl93aXRoX2RyaWZ0IDwtIGRmICU+JSBhZGRfaW5jcmVtZW50YWxfZHJpZnQoc3RhcnRfZGF0ZT1cIjE5ODctMDUtMjBcIiwgZW5kX2RhdGU9XCIyMDAwLTA1LTIyXCIsIG1hZ25pdHVkZT01MClcblxucCA9IGdncGxvdChkZl93aXRoX2RyaWZ0LCBhZXMoeCA9IHQsIHkgPSBwcmljZSkpICtcbiAgZ2VvbV9saW5lKGFlcyh5ID0gZGYkcHJpY2UpLCBjb2xvciA9IFwiZ3JleTUwXCIsIHNpemUgPSAxKSArICAjIHPDqXJpZSBvcmlnaW5hbFxuICBnZW9tX2xpbmUoY29sb3IgPSBcImJsdWVcIiwgc2l6ZSA9IDEpICsgICMgc8OpcmllIGNvbSBkcmlmdFxuICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSBhcy5udW1lcmljKGFzLkRhdGUoXCIxOTg3LTA1LTIwXCIpKSwgbGluZXR5cGU9XCJkb3R0ZWRcIiwgY29sb3IgPSBcInJlZFwiLCBzaXplPTAuNykgKyAgIyBpbsOtY2lvIGRvIGRyaWZ0XG4gIGdlb21fdmxpbmUoeGludGVyY2VwdCA9IGFzLm51bWVyaWMoYXMuRGF0ZShcIjIwMDAtMDUtMjJcIikpLCBsaW5ldHlwZT1cImRvdHRlZFwiLCBjb2xvciA9IFwicmVkXCIsIHNpemU9MC43KSArICAjIGZpbSBkbyBkcmlmdFxuICBhbm5vdGF0ZShcInRleHRcIiwgeD1hcy5EYXRlKFwiMTk4Ny0wNS0yM1wiKSwgeT1tYXgoZGYkcHJpY2UpIC0gMzAsIGxhYmVsPVwiSW7DrWNpb1wiLCBjb2xvciA9IFwicmVkXCIpICtcbiAgYW5ub3RhdGUoXCJ0ZXh0XCIsIHg9YXMuRGF0ZShcIjIwMDAtMDUtMjBcIiksIHk9bWF4KGRmJHByaWNlKSAtIDMwLCBsYWJlbD1cIkZpbSBkbyBEcmlmdFwiLCBjb2xvciA9IFwicmVkXCIpICtcbiAgbGFicyhcbiAgICB0aXRsZSA9IFwiUHJlw6dvIMOgIFZpc3RhIGRvIFBldHLDs2xlbyBCcmVudCBuYSBFdXJvcGEgKEZPQilcIixcbiAgICBzdWJ0aXRsZSA9IFwiSW5jbHVpbmRvIHVtIGRyaWZ0IGluY3JlbWVudGFsIGRlIDE5ODcgYSAyMDAwXCIsXG4gICAgeCA9IFwiRGF0YVwiLFxuICAgIHkgPSBcIlByZcOnbyBlbSBVU0RcIixcbiAgICBjYXB0aW9uID0gXCJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIGNvbSBzaW11bGHDp8OjbyBkZSBkcmlmdFwiXG4gICkgK1xuICB0aGVtZV9taW5pbWFsKCkgK1xuICB0aGVtZShcbiAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSBcImJvbGRcIiwgaGp1c3QgPSAwLjUpLFxuICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpLFxuICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChmYWNlID0gXCJib2xkXCIsIGNvbG9yID0gXCJibGFja1wiKSxcbiAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQoZmFjZSA9IFwiYm9sZFwiLCBjb2xvciA9IFwiYmxhY2tcIiksXG4gICAgcGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfbGluZShjb2xvciA9IFwiZ3JleTkwXCIpLFxuICAgIHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKClcbiAgKVxuXG5nZ3NhdmUoZmlsZW5hbWUgPSBcImJyZW50X2luY3JlbWVudGFsLnBuZ1wiLCBwbG90ID0gcCwgd2lkdGggPSAxMCwgaGVpZ2h0ID0gNiwgZHBpID0gMzAwKVxuYGBgIn0= -->
-<pre class="r"><code>add_incremental_drift &lt;- function(data, start_date=&quot;1987-05-20&quot;, end_date=&quot;1987-05-25&quot;, magnitude=50) {
-  #&#39; Add an incremental drift to the time series.
-  #&#39;
-  #&#39; @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
-  #&#39; @param start_date A character string representing the start date for the incremental drift in the format &quot;YYYY-MM-DD&quot;.
-  #&#39; @param end_date A character string representing the end date for the incremental drift in the format &quot;YYYY-MM-DD&quot;.
-  #&#39; @param magnitude A numeric value representing the magnitude of the incremental drift.
-  #&#39; 
-  #&#39; @return A dataframe with the updated time series.
-  start_index &lt;- which(data$t == as.Date(start_date, format=&quot;%Y-%m-%d&quot;))
-  end_index &lt;- which(data$t == as.Date(end_date, format=&quot;%Y-%m-%d&quot;))
+<!-- rnb-source-begin eyJkYXRhIjpbIiMgRnVuw6fDo28gcGFyYSBhanVzdGFyIG8gbW9kZWxvIEFSSU1BIGUgcmV0b3JuYXIgYSBwcmV2aXPDo28iLCJhZGp1c3RfYW5kX2ZvcmVjYXN0IDwtIGZ1bmN0aW9uKGRhdGEpIHtcbiAgIyBBanVzdGEgbyBtb2RlbG8gQVJJTUFcbiAgbW9kZWxfYXJpbWEgPC0gYXV0by5hcmltYShkYXRhKVxuICAjIEZheiBhIHByZXZpc8OjbyBwYXJhIG8gcHLDs3hpbW8gcG9udG9cbiAgZm9yZWNhc3RlZF92YWx1ZSA8LSBmb3JlY2FzdChtb2RlbF9hcmltYSwgaCA9IDEpJG1lYW5cbiAgXG4gIHJldHVybihmb3JlY2FzdGVkX3ZhbHVlKVxufSJdfQ== -->
+<pre class="r"><code># Função para ajustar o modelo ARIMA e retornar a previsão
+adjust_and_forecast &lt;- function(data) {
+  # Ajusta o modelo ARIMA
+  model_arima &lt;- auto.arima(data)
+  # Faz a previsão para o próximo ponto
+  forecasted_value &lt;- forecast(model_arima, h = 1)$mean
   
-  drift &lt;- seq(0, magnitude, length.out=(end_index - start_index + 1))
-  data$price[start_index:end_index] &lt;- data$price[start_index:end_index] + drift
-  return(data)
-}
-
-df_with_drift &lt;- df %&gt;% add_incremental_drift(start_date=&quot;1987-05-20&quot;, end_date=&quot;2000-05-22&quot;, magnitude=50)
-
-p = ggplot(df_with_drift, aes(x = t, y = price)) +
-  geom_line(aes(y = df$price), color = &quot;grey50&quot;, size = 1) +  # série original
-  geom_line(color = &quot;blue&quot;, size = 1) +  # série com drift
-  geom_vline(xintercept = as.numeric(as.Date(&quot;1987-05-20&quot;)), linetype=&quot;dotted&quot;, color = &quot;red&quot;, size=0.7) +  # início do drift
-  geom_vline(xintercept = as.numeric(as.Date(&quot;2000-05-22&quot;)), linetype=&quot;dotted&quot;, color = &quot;red&quot;, size=0.7) +  # fim do drift
-  annotate(&quot;text&quot;, x=as.Date(&quot;1987-05-23&quot;), y=max(df$price) - 30, label=&quot;Início&quot;, color = &quot;red&quot;) +
-  annotate(&quot;text&quot;, x=as.Date(&quot;2000-05-20&quot;), y=max(df$price) - 30, label=&quot;Fim do Drift&quot;, color = &quot;red&quot;) +
-  labs(
-    title = &quot;Preço à Vista do Petróleo Brent na Europa (FOB)&quot;,
-    subtitle = &quot;Incluindo um drift incremental de 1987 a 2000&quot;,
-    x = &quot;Data&quot;,
-    y = &quot;Preço em USD&quot;,
-    caption = &quot;Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift&quot;
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5),
-    axis.title.x = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    axis.title.y = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    panel.grid.major = element_line(color = &quot;grey90&quot;),
-    panel.grid.minor = element_blank()
-  )
-
-ggsave(filename = &quot;brent_incremental.png&quot;, plot = p, width = 10, height = 6, dpi = 300)</code></pre>
+  return(forecasted_value)
+}</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRkX3JlY3VycmVudF9kcmlmdCA8LSBmdW5jdGlvbihkYXRhLCBzdGFydF9kYXRlPVwiMTk4Ny0wNS0yMFwiLCBwZXJpb2Q9MiwgZHVyYXRpb249MSwgbWFnbml0dWRlPTIwKSB7XG4gICMnIEFkZCBhIHJlY3VycmVudCBkcmlmdCB0byB0aGUgdGltZSBzZXJpZXMuXG4gICMnXG4gICMnIEBwYXJhbSBkYXRhIEEgZGF0YWZyYW1lIGNvbnRhaW5pbmcgdGhlIHRpbWUgc2VyaWVzIGRhdGEgd2l0aCBjb2x1bW5zIGB0YCAoZGF0ZXMpIGFuZCBgcHJpY2VgICh2YWx1ZXMpLlxuICAjJyBAcGFyYW0gc3RhcnRfZGF0ZSBBIGNoYXJhY3RlciBzdHJpbmcgcmVwcmVzZW50aW5nIHRoZSBzdGFydCBkYXRlIGZvciB0aGUgcmVjdXJyZW50IGRyaWZ0IGluIHRoZSBmb3JtYXQgXCJZWVlZLU1NLUREXCIuXG4gICMnIEBwYXJhbSBwZXJpb2QgQSBudW1lcmljIHZhbHVlIGluZGljYXRpbmcgdGhlIHJlY3VycmVuY2UgcGVyaW9kIG9mIHRoZSBkcmlmdC5cbiAgIycgQHBhcmFtIGR1cmF0aW9uIEEgbnVtZXJpYyB2YWx1ZSBpbmRpY2F0aW5nIGhvdyBtYW55IGNvbnNlY3V0aXZlIGRheXMgdGhlIGRyaWZ0IHNob3VsZCBsYXN0LlxuICAjJyBAcGFyYW0gbWFnbml0dWRlIEEgbnVtZXJpYyB2YWx1ZSByZXByZXNlbnRpbmcgdGhlIG1hZ25pdHVkZSBvZiB0aGUgcmVjdXJyZW50IGRyaWZ0LlxuICAjJyBcbiAgIycgQHJldHVybiBBIGRhdGFmcmFtZSB3aXRoIHRoZSB1cGRhdGVkIHRpbWUgc2VyaWVzLlxuICBzdGFydF9pbmRleCA8LSB3aGljaChkYXRhJHQgPT0gYXMuRGF0ZShzdGFydF9kYXRlLCBmb3JtYXQ9XCIlWS0lbS0lZFwiKSlcbiAgXG4gIHdoaWxlKChzdGFydF9pbmRleCArIGR1cmF0aW9uIC0gMSkgPD0gbnJvdyhkYXRhKSkge1xuICAgICMgUHJpbnRhbmRvIGFzIGRhdGFzIGVtIHF1ZSBvIGRyaWZ0IGVzdMOhIHNlbmRvIGFwbGljYWRvXG4gICAgY2F0KFwiQXBwbHlpbmcgZHJpZnQgZnJvbSBkYXRlOlwiLCBhcy5jaGFyYWN0ZXIoZGF0YSR0W3N0YXJ0X2luZGV4XSksIFwidG8gZGF0ZTpcIiwgYXMuY2hhcmFjdGVyKGRhdGEkdFtzdGFydF9pbmRleCArIGR1cmF0aW9uIC0gMV0pLCBcIlxcblwiKVxuICAgIFxuICAgIGRhdGEkcHJpY2Vbc3RhcnRfaW5kZXg6KHN0YXJ0X2luZGV4ICsgZHVyYXRpb24gLSAxKV0gPC0gZGF0YSRwcmljZVtzdGFydF9pbmRleDooc3RhcnRfaW5kZXggKyBkdXJhdGlvbiAtIDEpXSArIG1hZ25pdHVkZVxuICAgIHN0YXJ0X2luZGV4IDwtIHN0YXJ0X2luZGV4ICsgcGVyaW9kXG4gIH1cbiAgXG4gIHJldHVybihkYXRhKVxufVxuXG5cbiMgQXBsaWNhciBkcmlmdCByZWNvcnJlbnRlIGNvbSBwZXLDrW9kbyBkZSA1IGFub3MgZSBkdXJhw6fDo28gZGUgNiBtZXNlc1xuZGZfd2l0aF9kcmlmdCA8LSBkZiAlPiUgYWRkX3JlY3VycmVudF9kcmlmdChzdGFydF9kYXRlPVwiMTk4Ny0wNS0yMFwiLCBwZXJpb2Q9KDUqMzY1KSwgZHVyYXRpb249MTgwLCBtYWduaXR1ZGU9MjApXG5gYGAifQ== -->
-<pre class="r"><code>add_recurrent_drift &lt;- function(data, start_date=&quot;1987-05-20&quot;, period=2, duration=1, magnitude=20) {
-  #&#39; Add a recurrent drift to the time series.
-  #&#39;
-  #&#39; @param data A dataframe containing the time series data with columns `t` (dates) and `price` (values).
-  #&#39; @param start_date A character string representing the start date for the recurrent drift in the format &quot;YYYY-MM-DD&quot;.
-  #&#39; @param period A numeric value indicating the recurrence period of the drift.
-  #&#39; @param duration A numeric value indicating how many consecutive days the drift should last.
-  #&#39; @param magnitude A numeric value representing the magnitude of the recurrent drift.
-  #&#39; 
-  #&#39; @return A dataframe with the updated time series.
-  start_index &lt;- which(data$t == as.Date(start_date, format=&quot;%Y-%m-%d&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiZ2VuZXJhdGVfZm9yZWNhc3RzIDwtIGZ1bmN0aW9uKGRmKSB7XG4gIG5faW5pdCA8LSAxMFxuICBkZl9mb3JlY2FzdHMgPC0gZGF0YS5mcmFtZSh0ID0gaW50ZWdlcigpLCBmb3JlY2FzdCA9IG51bWVyaWMoKSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuICBcbiAgZm9yIChpIGluIG5faW5pdDoobnJvdyhkZiktMSkpIHtcbiAgICBzdGFydF9pbmRleCA8LSBtYXgoMSwgaSAtIDI5KVxuICAgICMgU3ViY29uanVudG8gZGUgZGFkb3MgcGFyYSBtb2RlbGFnZW1cbiAgICBkYXRhX2Zvcl9tb2RlbGluZyA8LSBkZiRwcmljZVtzdGFydF9pbmRleDppXVxuICAgIFxuICAgICMgT2J0w6ltIGEgcHLDs3hpbWEgcHJldmlzw6NvXG4gICAgbmV4dF9mb3JlY2FzdCA8LSBhZGp1c3RfYW5kX2ZvcmVjYXN0KGRhdGFfZm9yX21vZGVsaW5nKVxuICAgIFxuICAgICMgQ29udmVydGUgYSBwcmV2aXPDo28gcGFyYSB1bSB2YWxvciBudW3DqXJpY29cbiAgICBuZXh0X2ZvcmVjYXN0X3ZhbHVlIDwtIGFzLm51bWVyaWMobmV4dF9mb3JlY2FzdClcbiAgICBcbiAgICAjIEFkaWNpb25hIGEgcHJldmlzw6NvIGFvIGRhdGFmcmFtZSBkZSBwcmV2aXPDtWVzXG4gICAgZGZfZm9yZWNhc3RzIDwtIHJiaW5kKGRmX2ZvcmVjYXN0cywgZGF0YS5mcmFtZSh0ID0gZGYkdFtpICsgMV0sIGZvcmVjYXN0ID0gbmV4dF9mb3JlY2FzdF92YWx1ZSkpXG4gIH1cbiAgXG4gIHJldHVybihkZl9mb3JlY2FzdHMpXG59In0= -->
+<pre class="r"><code>generate_forecasts &lt;- function(df) {
+  n_init &lt;- 10
+  df_forecasts &lt;- data.frame(t = integer(), forecast = numeric(), stringsAsFactors = FALSE)
   
-  while((start_index + duration - 1) &lt;= nrow(data)) {
-    # Printando as datas em que o drift está sendo aplicado
-    cat(&quot;Applying drift from date:&quot;, as.character(data$t[start_index]), &quot;to date:&quot;, as.character(data$t[start_index + duration - 1]), &quot;\n&quot;)
+  for (i in n_init:(nrow(df)-1)) {
+    start_index &lt;- max(1, i - 29)
+    # Subconjunto de dados para modelagem
+    data_for_modeling &lt;- df$price[start_index:i]
     
-    data$price[start_index:(start_index + duration - 1)] &lt;- data$price[start_index:(start_index + duration - 1)] + magnitude
-    start_index &lt;- start_index + period
+    # Obtém a próxima previsão
+    next_forecast &lt;- adjust_and_forecast(data_for_modeling)
+    
+    # Converte a previsão para um valor numérico
+    next_forecast_value &lt;- as.numeric(next_forecast)
+    
+    # Adiciona a previsão ao dataframe de previsões
+    df_forecasts &lt;- rbind(df_forecasts, data.frame(t = df$t[i + 1], forecast = next_forecast_value))
   }
   
-  return(data)
-}
-
-
-# Aplicar drift recorrente com período de 5 anos e duração de 6 meses
-df_with_drift &lt;- df %&gt;% add_recurrent_drift(start_date=&quot;1987-05-20&quot;, period=(5*365), duration=180, magnitude=20)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiQXBwbHlpbmcgZHJpZnQgZnJvbSBkYXRlOiAxOTg3LTA1LTIwIHRvIGRhdGU6IDE5ODgtMDItMDIgXG5BcHBseWluZyBkcmlmdCBmcm9tIGRhdGU6IDE5OTQtMDctMTUgdG8gZGF0ZTogMTk5NS0wMy0yOSBcbkFwcGx5aW5nIGRyaWZ0IGZyb20gZGF0ZTogMjAwMS0xMC0wNSB0byBkYXRlOiAyMDAyLTA2LTIxIFxuQXBwbHlpbmcgZHJpZnQgZnJvbSBkYXRlOiAyMDA4LTExLTI2IHRvIGRhdGU6IDIwMDktMDgtMTQgXG5BcHBseWluZyBkcmlmdCBmcm9tIGRhdGU6IDIwMTYtMDItMjkgdG8gZGF0ZTogMjAxNi0xMS0wOCBcbiJ9 -->
-<pre><code>Applying drift from date: 1987-05-20 to date: 1988-02-02 
-Applying drift from date: 1994-07-15 to date: 1995-03-29 
-Applying drift from date: 2001-10-05 to date: 2002-06-21 
-Applying drift from date: 2008-11-26 to date: 2009-08-14 
-Applying drift from date: 2016-02-29 to date: 2016-11-08 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEYXRhcyBleGF0YXMgZG9zIGluw61jaW9zIGUgdMOpcm1pbm9zIGRvcyBkcmlmdHNcbnN0YXJ0X2RhdGVzIDwtIGFzLkRhdGUoYyhcIjE5ODctMDUtMjBcIiwgXCIxOTk0LTA3LTE1XCIsIFwiMjAwMS0xMC0wNVwiLCBcIjIwMDgtMTEtMjZcIiwgXCIyMDE2LTAyLTI5XCIpKVxuZW5kX2RhdGVzIDwtIGFzLkRhdGUoYyhcIjE5ODgtMDItMDJcIiwgXCIxOTk1LTAzLTI5XCIsIFwiMjAwMi0wNi0yMVwiLCBcIjIwMDktMDgtMTRcIiwgXCIyMDE2LTExLTA4XCIpKVxuXG4jIFBsb3RhclxucCA9IGdncGxvdChkZl93aXRoX2RyaWZ0LCBhZXMoeCA9IHQsIHkgPSBwcmljZSkpICtcbiAgZ2VvbV9saW5lKGFlcyh5ID0gZGYkcHJpY2UpLCBjb2xvciA9IFwiZ3JleTUwXCIsIHNpemUgPSAxKSArICAjIHPDqXJpZSBvcmlnaW5hbFxuICBnZW9tX2xpbmUoY29sb3IgPSBcImJsdWVcIiwgc2l6ZSA9IDEpICsgICMgc8OpcmllIGNvbSBkcmlmdFxuICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSBhcy5udW1lcmljKHN0YXJ0X2RhdGVzKSwgbGluZXR5cGU9XCJkb3R0ZWRcIiwgY29sb3IgPSBcInJlZFwiLCBzaXplPTAuNykgKyAgIyBpbsOtY2lvIGRvcyBkcmlmdHNcbiAgZ2VvbV92bGluZSh4aW50ZXJjZXB0ID0gYXMubnVtZXJpYyhlbmRfZGF0ZXMpLCBsaW5ldHlwZT1cImRvdHRlZFwiLCBjb2xvciA9IFwicmVkXCIsIHNpemU9MC43KSArICAjIGZpbSBkb3MgZHJpZnRzXG4gIGFubm90YXRlKFwidGV4dFwiLCB4PWFzLkRhdGUoXCIxOTkwLTAxLTAxXCIpLCB5PW1heChkZl93aXRoX2RyaWZ0JHByaWNlKSAtIDIwLCBsYWJlbD1cIkRyaWZ0cyBhIGNhZGEgNSBhbm9zXCIsIGNvbG9yID0gXCJyZWRcIikgK1xuICBsYWJzKFxuICAgIHRpdGxlID0gXCJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKVwiLFxuICAgIHN1YnRpdGxlID0gXCJDb21wYXJhbmRvIGEgc8OpcmllIG9yaWdpbmFsIGUgYSBzw6lyaWUgY29tIGRyaWZ0cyByZWNvcnJlbnRlcyBhIGNhZGEgNSBhbm9zXCIsXG4gICAgeCA9IFwiRGF0YVwiLFxuICAgIHkgPSBcIlByZcOnbyBlbSBVU0RcIixcbiAgICBjYXB0aW9uID0gXCJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIGNvbSBzaW11bGHDp8OjbyBkZSBkcmlmdFwiXG4gICkgK1xuICB0aGVtZV9taW5pbWFsKCkgK1xuICB0aGVtZShcbiAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSBcImJvbGRcIiwgaGp1c3QgPSAwLjUpLFxuICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpLFxuICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChmYWNlID0gXCJib2xkXCIsIGNvbG9yID0gXCJibGFja1wiKSxcbiAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQoZmFjZSA9IFwiYm9sZFwiLCBjb2xvciA9IFwiYmxhY2tcIiksXG4gICAgcGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfbGluZShjb2xvciA9IFwiZ3JleTkwXCIpLFxuICAgIHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKClcbiAgKVxuXG5nZ3NhdmUoZmlsZW5hbWUgPSBcImJyZW50X3JlY29ycmVudGUucG5nXCIsIHBsb3QgPSBwLCB3aWR0aCA9IDEwLCBoZWlnaHQgPSA2LCBkcGkgPSAzMDApXG5gYGAifQ== -->
-<pre class="r"><code># Datas exatas dos inícios e términos dos drifts
-start_dates &lt;- as.Date(c(&quot;1987-05-20&quot;, &quot;1994-07-15&quot;, &quot;2001-10-05&quot;, &quot;2008-11-26&quot;, &quot;2016-02-29&quot;))
-end_dates &lt;- as.Date(c(&quot;1988-02-02&quot;, &quot;1995-03-29&quot;, &quot;2002-06-21&quot;, &quot;2009-08-14&quot;, &quot;2016-11-08&quot;))
-
-# Plotar
-p = ggplot(df_with_drift, aes(x = t, y = price)) +
-  geom_line(aes(y = df$price), color = &quot;grey50&quot;, size = 1) +  # série original
-  geom_line(color = &quot;blue&quot;, size = 1) +  # série com drift
-  geom_vline(xintercept = as.numeric(start_dates), linetype=&quot;dotted&quot;, color = &quot;red&quot;, size=0.7) +  # início dos drifts
-  geom_vline(xintercept = as.numeric(end_dates), linetype=&quot;dotted&quot;, color = &quot;red&quot;, size=0.7) +  # fim dos drifts
-  annotate(&quot;text&quot;, x=as.Date(&quot;1990-01-01&quot;), y=max(df_with_drift$price) - 20, label=&quot;Drifts a cada 5 anos&quot;, color = &quot;red&quot;) +
-  labs(
-    title = &quot;Preço à Vista do Petróleo Brent na Europa (FOB)&quot;,
-    subtitle = &quot;Comparando a série original e a série com drifts recorrentes a cada 5 anos&quot;,
-    x = &quot;Data&quot;,
-    y = &quot;Preço em USD&quot;,
-    caption = &quot;Fonte: EUROPE BRENT SPOT PRICE FOB com simulação de drift&quot;
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5),
-    axis.title.x = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    axis.title.y = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    panel.grid.major = element_line(color = &quot;grey90&quot;),
-    panel.grid.minor = element_blank()
-  )
-
-ggsave(filename = &quot;brent_recorrente.png&quot;, plot = p, width = 10, height = 6, dpi = 300)</code></pre>
+  return(df_forecasts)
+}</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
-</div>
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbInRlbXAgPSBkZiAlPiUgaGVhZCgxMDApIiwiIiwidGVtcF9mb3JlY2FzdHMgPSBnZW5lcmF0ZV9mb3JlY2FzdHModGVtcCkiLCIiLCJkZl9maW5hbCA8LSB0ZW1wICU+JVxuICBsZWZ0X2pvaW4odGVtcF9mb3JlY2FzdHMsIGJ5ID0gXCJ0XCIpICU+JVxuICBmaWx0ZXIoIWlzLm5hKGZvcmVjYXN0KSkgJT4lXG4gIG11dGF0ZShmb3JlY2FzdCA9IHJvdW5kKGZvcmVjYXN0KSxcbiAgICBhcmltYV9lcnJvX2Fic29sdXRvID0gcm91bmQoYWJzKHByaWNlIC0gZm9yZWNhc3QpLCBkaWdpdHMgPSAyKSkiLCIiLCJ3cml0ZV9jc3YoZGZfZmluYWwsIFwiL3dvcmtzcGFjZXMvZXN0YXRpc3RpY2EudGNjL2RhdGEvcmVzdWx0cy9hcmltYS5jc3ZcIikiXX0= -->
+<pre class="r"><code>temp = df %&gt;% head(100)
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoZ2dhbmltYXRlKQpsaWJyYXJ5KHRyYW5zZm9ybXIpCmBgYAoKCmBgYHtyfQojIERlZmluZSBvIGxvY2FsZSBjb20gdsOtcmd1bGEgY29tbyBtYXJjYWRvciBkZWNpbWFsCm15X2xvY2FsZSA8LSBsb2NhbGUoZGVjaW1hbF9tYXJrID0gIiwiKQoKIyBMw6ogbyBhcnF1aXZvIENTViBjb20gYSBjb25maWd1cmHDp8OjbyBkZSBsb2NhbGUgZGVmaW5pZGEKZGYgPC0gcmVhZF9jc3YoIi4uL2RhdGEvZWJzcC5jc3YiLCBsb2NhbGUgPSBteV9sb2NhbGUpCmRmJHQgPC0gYXMuRGF0ZShkZiR0LCBmb3JtYXQ9IiViLiAlZCwgJVkiLCB0ej0iVVRDIikKCmRmICU+JSBoZWFkKDUpCmBgYAoKYGBge3J9CnAgPSBkZiAlPiUKICBnZ3Bsb3QoYWVzKHggPSB0LCB5ID0gcHJpY2UpKSArCiAgZ2VvbV9saW5lKGNvbG9yID0gImJsdWUiLCBzaXplID0gMSkgKwogIGxhYnMoCiAgICB0aXRsZSA9ICJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKSIsCiAgICBzdWJ0aXRsZSA9ICJVbWEgdmlzdWFsaXphw6fDo28gZGEgc8OpcmllIHRlbXBvcmFsIGRvIGJlbmNobWFyayBnbG9iYWwgZGUgcGV0csOzbGVvIiwKICAgIHggPSAiRGF0YSIsCiAgICB5ID0gIlByZcOnbyBlbSBVU0QiLAogICAgY2FwdGlvbiA9ICJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIgogICkgKwogIHRoZW1lX21pbmltYWwoKSArCiAgdGhlbWUoCiAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGhqdXN0ID0gMC41KSwKICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpLAogICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGNvbG9yID0gImJsYWNrIiksCiAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQoZmFjZSA9ICJib2xkIiwgY29sb3IgPSAiYmxhY2siKSwKICAgIHBhbmVsLmdyaWQubWFqb3IgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiZ3JleTkwIiksCiAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpCiAgKSAKCmdnc2F2ZShmaWxlbmFtZSA9ICIuLi9pbWFnZW5zL2JyZW50LnBuZyIsIHBsb3QgPSBwLCB3aWR0aCA9IDEwLCBoZWlnaHQgPSA2LCBkcGkgPSAzMDApCgpgYGAKCiMgRHJpZnQgQWJydXB0bwoKYGBge3J9CmFkZF9hYnJ1cHRfZHJpZnQgPC0gZnVuY3Rpb24oZGF0YSwgZGF0ZT0iMjAwMC0wNS0yMiIsIG1hZ25pdHVkZT01MCkgewogICMnIEFkZCBhbiBhYnJ1cHQgZHJpZnQgdG8gdGhlIHRpbWUgc2VyaWVzLgogICMnCiAgIycgQHBhcmFtIGRhdGEgQSBkYXRhZnJhbWUgY29udGFpbmluZyB0aGUgdGltZSBzZXJpZXMgZGF0YSB3aXRoIGNvbHVtbnMgYHRgIChkYXRlcykgYW5kIGBwcmljZWAgKHZhbHVlcykuCiAgIycgQHBhcmFtIGRhdGUgQSBjaGFyYWN0ZXIgc3RyaW5nIHJlcHJlc2VudGluZyB0aGUgc3RhcnQgZGF0ZSBmb3IgdGhlIGFicnVwdCBkcmlmdCBpbiB0aGUgZm9ybWF0ICJZWVlZLU1NLUREIi4KICAjJyBAcGFyYW0gbWFnbml0dWRlIEEgbnVtZXJpYyB2YWx1ZSByZXByZXNlbnRpbmcgdGhlIG1hZ25pdHVkZSBvZiB0aGUgYWJydXB0IGRyaWZ0LgogICMnIAogICMnIEByZXR1cm4gQSBkYXRhZnJhbWUgd2l0aCB0aGUgdXBkYXRlZCB0aW1lIHNlcmllcy4KICBpbmRleCA8LSB3aGljaChkYXRhJHQgPT0gYXMuRGF0ZShkYXRlLCBmb3JtYXQ9IiVZLSVtLSVkIikpCiAgZGF0YSRwcmljZVtpbmRleDpucm93KGRhdGEpXSA8LSBkYXRhJHByaWNlW2luZGV4Om5yb3coZGF0YSldICsgbWFnbml0dWRlCiAgcmV0dXJuKGRhdGEpCn0KCgpwID0gZGYgJT4lIAogIGFkZF9hYnJ1cHRfZHJpZnQoZGF0ZT0iMjAwMC0wNS0yMiIsIG1hZ25pdHVkZT01MCkgJT4lCiAgZ2dwbG90KGFlcyh4ID0gdCwgeSA9IHByaWNlKSkgKwogIGdlb21fbGluZShjb2xvciA9ICJibHVlIiwgc2l6ZSA9IDEpICsKICBnZW9tX3ZsaW5lKGFlcyh4aW50ZXJjZXB0ID0gYXMuRGF0ZSgiMjAwMC0wNS0yMiIpKSwgbGluZXR5cGU9ImRhc2hlZCIsIGNvbG9yID0gInJlZCIsIHNpemUgPSAxKSArICMgTGluaGEgdmVydGljYWwgbm8gZHJpZnQKICBhbm5vdGF0ZSgidGV4dCIsIHg9YXMuRGF0ZSgiMjAwMC0wNS0yNCIpLCB5PW1heChkZiRwcmljZSkgLSAzMCwgbGFiZWw9IkRyaWZ0IEFicnVwdG8iLCBjb2xvciA9ICJyZWQiKSArICMgQW5vdGHDp8OjbwogIGxhYnMoCiAgICB0aXRsZSA9ICJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKSIsCiAgICBzdWJ0aXRsZSA9ICJJbmNsdWluZG8gdW0gZHJpZnQgYWJydXB0byBlbSAyMDAwIiwKICAgIHggPSAiRGF0YSIsCiAgICB5ID0gIlByZcOnbyBlbSBVU0QiLAogICAgY2FwdGlvbiA9ICJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIGNvbSBzaW11bGHDp8OjbyBkZSBkcmlmdCIKICApICsKICB0aGVtZV9taW5pbWFsKCkgKwogIHRoZW1lKAogICAgcGxvdC50aXRsZSA9IGVsZW1lbnRfdGV4dChmYWNlID0gImJvbGQiLCBoanVzdCA9IDAuNSksCiAgICBwbG90LnN1YnRpdGxlID0gZWxlbWVudF90ZXh0KGhqdXN0ID0gMC41KSwKICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChmYWNlID0gImJvbGQiLCBjb2xvciA9ICJibGFjayIpLAogICAgYXhpcy50aXRsZS55ID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGNvbG9yID0gImJsYWNrIiksCiAgICBwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9saW5lKGNvbG9yID0gImdyZXk5MCIpLAogICAgcGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKQogICkKCmdnc2F2ZShmaWxlbmFtZSA9ICIuLi9pbWFnZW5zL2JyZW50X2FicnVwdG8ucG5nIiwgcGxvdCA9IHAsIHdpZHRoID0gMTAsIGhlaWdodCA9IDYsIGRwaSA9IDMwMCkKYGBgCgojIERyaWZ0IEluY3JlbWVudGFsCgpgYGB7cn0KYWRkX2luY3JlbWVudGFsX2RyaWZ0IDwtIGZ1bmN0aW9uKGRhdGEsIHN0YXJ0X2RhdGU9IjE5ODctMDUtMjAiLCBlbmRfZGF0ZT0iMTk4Ny0wNS0yNSIsIG1hZ25pdHVkZT01MCkgewogICMnIEFkZCBhbiBpbmNyZW1lbnRhbCBkcmlmdCB0byB0aGUgdGltZSBzZXJpZXMuCiAgIycKICAjJyBAcGFyYW0gZGF0YSBBIGRhdGFmcmFtZSBjb250YWluaW5nIHRoZSB0aW1lIHNlcmllcyBkYXRhIHdpdGggY29sdW1ucyBgdGAgKGRhdGVzKSBhbmQgYHByaWNlYCAodmFsdWVzKS4KICAjJyBAcGFyYW0gc3RhcnRfZGF0ZSBBIGNoYXJhY3RlciBzdHJpbmcgcmVwcmVzZW50aW5nIHRoZSBzdGFydCBkYXRlIGZvciB0aGUgaW5jcmVtZW50YWwgZHJpZnQgaW4gdGhlIGZvcm1hdCAiWVlZWS1NTS1ERCIuCiAgIycgQHBhcmFtIGVuZF9kYXRlIEEgY2hhcmFjdGVyIHN0cmluZyByZXByZXNlbnRpbmcgdGhlIGVuZCBkYXRlIGZvciB0aGUgaW5jcmVtZW50YWwgZHJpZnQgaW4gdGhlIGZvcm1hdCAiWVlZWS1NTS1ERCIuCiAgIycgQHBhcmFtIG1hZ25pdHVkZSBBIG51bWVyaWMgdmFsdWUgcmVwcmVzZW50aW5nIHRoZSBtYWduaXR1ZGUgb2YgdGhlIGluY3JlbWVudGFsIGRyaWZ0LgogICMnIAogICMnIEByZXR1cm4gQSBkYXRhZnJhbWUgd2l0aCB0aGUgdXBkYXRlZCB0aW1lIHNlcmllcy4KICBzdGFydF9pbmRleCA8LSB3aGljaChkYXRhJHQgPT0gYXMuRGF0ZShzdGFydF9kYXRlLCBmb3JtYXQ9IiVZLSVtLSVkIikpCiAgZW5kX2luZGV4IDwtIHdoaWNoKGRhdGEkdCA9PSBhcy5EYXRlKGVuZF9kYXRlLCBmb3JtYXQ9IiVZLSVtLSVkIikpCiAgCiAgZHJpZnQgPC0gc2VxKDAsIG1hZ25pdHVkZSwgbGVuZ3RoLm91dD0oZW5kX2luZGV4IC0gc3RhcnRfaW5kZXggKyAxKSkKICBkYXRhJHByaWNlW3N0YXJ0X2luZGV4OmVuZF9pbmRleF0gPC0gZGF0YSRwcmljZVtzdGFydF9pbmRleDplbmRfaW5kZXhdICsgZHJpZnQKICByZXR1cm4oZGF0YSkKfQoKZGZfd2l0aF9kcmlmdCA8LSBkZiAlPiUgYWRkX2luY3JlbWVudGFsX2RyaWZ0KHN0YXJ0X2RhdGU9IjE5ODctMDUtMjAiLCBlbmRfZGF0ZT0iMjAwMC0wNS0yMiIsIG1hZ25pdHVkZT01MCkKCnAgPSBnZ3Bsb3QoZGZfd2l0aF9kcmlmdCwgYWVzKHggPSB0LCB5ID0gcHJpY2UpKSArCiAgZ2VvbV9saW5lKGFlcyh5ID0gZGYkcHJpY2UpLCBjb2xvciA9ICJncmV5NTAiLCBzaXplID0gMSkgKyAgIyBzw6lyaWUgb3JpZ2luYWwKICBnZW9tX2xpbmUoY29sb3IgPSAiYmx1ZSIsIHNpemUgPSAxKSArICAjIHPDqXJpZSBjb20gZHJpZnQKICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSBhcy5udW1lcmljKGFzLkRhdGUoIjE5ODctMDUtMjAiKSksIGxpbmV0eXBlPSJkb3R0ZWQiLCBjb2xvciA9ICJyZWQiLCBzaXplPTAuNykgKyAgIyBpbsOtY2lvIGRvIGRyaWZ0CiAgZ2VvbV92bGluZSh4aW50ZXJjZXB0ID0gYXMubnVtZXJpYyhhcy5EYXRlKCIyMDAwLTA1LTIyIikpLCBsaW5ldHlwZT0iZG90dGVkIiwgY29sb3IgPSAicmVkIiwgc2l6ZT0wLjcpICsgICMgZmltIGRvIGRyaWZ0CiAgYW5ub3RhdGUoInRleHQiLCB4PWFzLkRhdGUoIjE5ODctMDUtMjMiKSwgeT1tYXgoZGYkcHJpY2UpIC0gMzAsIGxhYmVsPSJJbsOtY2lvIiwgY29sb3IgPSAicmVkIikgKwogIGFubm90YXRlKCJ0ZXh0IiwgeD1hcy5EYXRlKCIyMDAwLTA1LTIwIiksIHk9bWF4KGRmJHByaWNlKSAtIDMwLCBsYWJlbD0iRmltIGRvIERyaWZ0IiwgY29sb3IgPSAicmVkIikgKwogIGxhYnMoCiAgICB0aXRsZSA9ICJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKSIsCiAgICBzdWJ0aXRsZSA9ICJJbmNsdWluZG8gdW0gZHJpZnQgaW5jcmVtZW50YWwgZGUgMTk4NyBhIDIwMDAiLAogICAgeCA9ICJEYXRhIiwKICAgIHkgPSAiUHJlw6dvIGVtIFVTRCIsCiAgICBjYXB0aW9uID0gIkZvbnRlOiBFVVJPUEUgQlJFTlQgU1BPVCBQUklDRSBGT0IgY29tIHNpbXVsYcOnw6NvIGRlIGRyaWZ0IgogICkgKwogIHRoZW1lX21pbmltYWwoKSArCiAgdGhlbWUoCiAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGhqdXN0ID0gMC41KSwKICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoaGp1c3QgPSAwLjUpLAogICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGNvbG9yID0gImJsYWNrIiksCiAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQoZmFjZSA9ICJib2xkIiwgY29sb3IgPSAiYmxhY2siKSwKICAgIHBhbmVsLmdyaWQubWFqb3IgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiZ3JleTkwIiksCiAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpCiAgKQoKZ2dzYXZlKGZpbGVuYW1lID0gIi4uL2ltYWdlbnMvYnJlbnRfaW5jcmVtZW50YWwucG5nIiwgcGxvdCA9IHAsIHdpZHRoID0gMTAsIGhlaWdodCA9IDYsIGRwaSA9IDMwMCkKYGBgCgoKYGBge3J9CmFkZF9yZWN1cnJlbnRfZHJpZnQgPC0gZnVuY3Rpb24oZGF0YSwgc3RhcnRfZGF0ZT0iMTk4Ny0wNS0yMCIsIHBlcmlvZD0yLCBkdXJhdGlvbj0xLCBtYWduaXR1ZGU9MjApIHsKICAjJyBBZGQgYSByZWN1cnJlbnQgZHJpZnQgdG8gdGhlIHRpbWUgc2VyaWVzLgogICMnCiAgIycgQHBhcmFtIGRhdGEgQSBkYXRhZnJhbWUgY29udGFpbmluZyB0aGUgdGltZSBzZXJpZXMgZGF0YSB3aXRoIGNvbHVtbnMgYHRgIChkYXRlcykgYW5kIGBwcmljZWAgKHZhbHVlcykuCiAgIycgQHBhcmFtIHN0YXJ0X2RhdGUgQSBjaGFyYWN0ZXIgc3RyaW5nIHJlcHJlc2VudGluZyB0aGUgc3RhcnQgZGF0ZSBmb3IgdGhlIHJlY3VycmVudCBkcmlmdCBpbiB0aGUgZm9ybWF0ICJZWVlZLU1NLUREIi4KICAjJyBAcGFyYW0gcGVyaW9kIEEgbnVtZXJpYyB2YWx1ZSBpbmRpY2F0aW5nIHRoZSByZWN1cnJlbmNlIHBlcmlvZCBvZiB0aGUgZHJpZnQuCiAgIycgQHBhcmFtIGR1cmF0aW9uIEEgbnVtZXJpYyB2YWx1ZSBpbmRpY2F0aW5nIGhvdyBtYW55IGNvbnNlY3V0aXZlIGRheXMgdGhlIGRyaWZ0IHNob3VsZCBsYXN0LgogICMnIEBwYXJhbSBtYWduaXR1ZGUgQSBudW1lcmljIHZhbHVlIHJlcHJlc2VudGluZyB0aGUgbWFnbml0dWRlIG9mIHRoZSByZWN1cnJlbnQgZHJpZnQuCiAgIycgCiAgIycgQHJldHVybiBBIGRhdGFmcmFtZSB3aXRoIHRoZSB1cGRhdGVkIHRpbWUgc2VyaWVzLgogIHN0YXJ0X2luZGV4IDwtIHdoaWNoKGRhdGEkdCA9PSBhcy5EYXRlKHN0YXJ0X2RhdGUsIGZvcm1hdD0iJVktJW0tJWQiKSkKICAKICB3aGlsZSgoc3RhcnRfaW5kZXggKyBkdXJhdGlvbiAtIDEpIDw9IG5yb3coZGF0YSkpIHsKICAgICMgUHJpbnRhbmRvIGFzIGRhdGFzIGVtIHF1ZSBvIGRyaWZ0IGVzdMOhIHNlbmRvIGFwbGljYWRvCiAgICBjYXQoIkFwcGx5aW5nIGRyaWZ0IGZyb20gZGF0ZToiLCBhcy5jaGFyYWN0ZXIoZGF0YSR0W3N0YXJ0X2luZGV4XSksICJ0byBkYXRlOiIsIGFzLmNoYXJhY3RlcihkYXRhJHRbc3RhcnRfaW5kZXggKyBkdXJhdGlvbiAtIDFdKSwgIlxuIikKICAgIAogICAgZGF0YSRwcmljZVtzdGFydF9pbmRleDooc3RhcnRfaW5kZXggKyBkdXJhdGlvbiAtIDEpXSA8LSBkYXRhJHByaWNlW3N0YXJ0X2luZGV4OihzdGFydF9pbmRleCArIGR1cmF0aW9uIC0gMSldICsgbWFnbml0dWRlCiAgICBzdGFydF9pbmRleCA8LSBzdGFydF9pbmRleCArIHBlcmlvZAogIH0KICAKICByZXR1cm4oZGF0YSkKfQoKCiMgQXBsaWNhciBkcmlmdCByZWNvcnJlbnRlIGNvbSBwZXLDrW9kbyBkZSA1IGFub3MgZSBkdXJhw6fDo28gZGUgNiBtZXNlcwpkZl93aXRoX2RyaWZ0IDwtIGRmICU+JSBhZGRfcmVjdXJyZW50X2RyaWZ0KHN0YXJ0X2RhdGU9IjE5ODctMDUtMjAiLCBwZXJpb2Q9KDUqMzY1KSwgZHVyYXRpb249MTgwLCBtYWduaXR1ZGU9MjApCgojIERhdGFzIGV4YXRhcyBkb3MgaW7DrWNpb3MgZSB0w6lybWlub3MgZG9zIGRyaWZ0cwpzdGFydF9kYXRlcyA8LSBhcy5EYXRlKGMoIjE5ODctMDUtMjAiLCAiMTk5NC0wNy0xNSIsICIyMDAxLTEwLTA1IiwgIjIwMDgtMTEtMjYiLCAiMjAxNi0wMi0yOSIpKQplbmRfZGF0ZXMgPC0gYXMuRGF0ZShjKCIxOTg4LTAyLTAyIiwgIjE5OTUtMDMtMjkiLCAiMjAwMi0wNi0yMSIsICIyMDA5LTA4LTE0IiwgIjIwMTYtMTEtMDgiKSkKCiMgUGxvdGFyCnAgPSBnZ3Bsb3QoZGZfd2l0aF9kcmlmdCwgYWVzKHggPSB0LCB5ID0gcHJpY2UpKSArCiAgZ2VvbV9saW5lKGFlcyh5ID0gZGYkcHJpY2UpLCBjb2xvciA9ICJncmV5NTAiLCBzaXplID0gMSkgKyAgIyBzw6lyaWUgb3JpZ2luYWwKICBnZW9tX2xpbmUoY29sb3IgPSAiYmx1ZSIsIHNpemUgPSAxKSArICAjIHPDqXJpZSBjb20gZHJpZnQKICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSBhcy5udW1lcmljKHN0YXJ0X2RhdGVzKSwgbGluZXR5cGU9ImRvdHRlZCIsIGNvbG9yID0gInJlZCIsIHNpemU9MC43KSArICAjIGluw61jaW8gZG9zIGRyaWZ0cwogIGdlb21fdmxpbmUoeGludGVyY2VwdCA9IGFzLm51bWVyaWMoZW5kX2RhdGVzKSwgbGluZXR5cGU9ImRvdHRlZCIsIGNvbG9yID0gInJlZCIsIHNpemU9MC43KSArICAjIGZpbSBkb3MgZHJpZnRzCiAgYW5ub3RhdGUoInRleHQiLCB4PWFzLkRhdGUoIjE5OTAtMDEtMDEiKSwgeT1tYXgoZGZfd2l0aF9kcmlmdCRwcmljZSkgLSAyMCwgbGFiZWw9IkRyaWZ0cyBhIGNhZGEgNSBhbm9zIiwgY29sb3IgPSAicmVkIikgKwogIGxhYnMoCiAgICB0aXRsZSA9ICJQcmXDp28gw6AgVmlzdGEgZG8gUGV0csOzbGVvIEJyZW50IG5hIEV1cm9wYSAoRk9CKSIsCiAgICBzdWJ0aXRsZSA9ICJDb21wYXJhbmRvIGEgc8OpcmllIG9yaWdpbmFsIGUgYSBzw6lyaWUgY29tIGRyaWZ0cyByZWNvcnJlbnRlcyBhIGNhZGEgNSBhbm9zIiwKICAgIHggPSAiRGF0YSIsCiAgICB5ID0gIlByZcOnbyBlbSBVU0QiLAogICAgY2FwdGlvbiA9ICJGb250ZTogRVVST1BFIEJSRU5UIFNQT1QgUFJJQ0UgRk9CIGNvbSBzaW11bGHDp8OjbyBkZSBkcmlmdCIKICApICsKICB0aGVtZV9taW5pbWFsKCkgKwogIHRoZW1lKAogICAgcGxvdC50aXRsZSA9IGVsZW1lbnRfdGV4dChmYWNlID0gImJvbGQiLCBoanVzdCA9IDAuNSksCiAgICBwbG90LnN1YnRpdGxlID0gZWxlbWVudF90ZXh0KGhqdXN0ID0gMC41KSwKICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChmYWNlID0gImJvbGQiLCBjb2xvciA9ICJibGFjayIpLAogICAgYXhpcy50aXRsZS55ID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIGNvbG9yID0gImJsYWNrIiksCiAgICBwYW5lbC5ncmlkLm1ham9yID0gZWxlbWVudF9saW5lKGNvbG9yID0gImdyZXk5MCIpLAogICAgcGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKQogICkKCmdnc2F2ZShmaWxlbmFtZSA9ICIuLi9pbWFnZW5zL2JyZW50X3JlY29ycmVudGUucG5nIiwgcGxvdCA9IHAsIHdpZHRoID0gMTAsIGhlaWdodCA9IDYsIGRwaSA9IDMwMCkKYGBgCgoKCg==</div>
+temp_forecasts = generate_forecasts(temp)
+
+df_final &lt;- temp %&gt;%
+  left_join(temp_forecasts, by = &quot;t&quot;) %&gt;%
+  filter(!is.na(forecast)) %&gt;%
+  mutate(forecast = round(forecast),
+    arima_erro_absoluto = round(abs(price - forecast), digits = 2))
+
+write_csv(df_final, &quot;/workspaces/estatistica.tcc/data/results/arima.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeSgidGlkeXZlcnNlIikKbGlicmFyeSgiZm9yZWNhc3QiKQpgYGAKCgpgYGB7ciwgbWVzc2FnZSA9IEZBTFNFLCB3YXJuaW5nID0gRkFMU0V9CmRmIDwtIHJlYWRfY3N2KCIvd29ya3NwYWNlcy9lc3RhdGlzdGljYS50Y2MvZGF0YS9lYnNwX2NsZWFuLmNzdiIpCmRmJHQgPC0gYXMuRGF0ZShkZiR0LCBmb3JtYXQ9IiViLiAlZCwgJVkiLCB0ej0iVVRDIikKZGYgJT4lIGhlYWQoKQpgYGAKCmBgYHtyLCBtZXNzYWdlID0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRX0KCiMgRnVuw6fDo28gcGFyYSBhanVzdGFyIG8gbW9kZWxvIEFSSU1BIGUgcmV0b3JuYXIgYSBwcmV2aXPDo28KYWRqdXN0X2FuZF9mb3JlY2FzdCA8LSBmdW5jdGlvbihkYXRhKSB7CiAgIyBBanVzdGEgbyBtb2RlbG8gQVJJTUEKICBtb2RlbF9hcmltYSA8LSBhdXRvLmFyaW1hKGRhdGEpCiAgIyBGYXogYSBwcmV2aXPDo28gcGFyYSBvIHByw7N4aW1vIHBvbnRvCiAgZm9yZWNhc3RlZF92YWx1ZSA8LSBmb3JlY2FzdChtb2RlbF9hcmltYSwgaCA9IDEpJG1lYW4KICAKICByZXR1cm4oZm9yZWNhc3RlZF92YWx1ZSkKfQpgYGAKCgpgYGB7ciwgbWVzc2FnZSA9IEZBTFNFLCB3YXJuaW5nID0gRkFMU0V9CmdlbmVyYXRlX2ZvcmVjYXN0cyA8LSBmdW5jdGlvbihkZikgewogIG5faW5pdCA8LSAxMAogIGRmX2ZvcmVjYXN0cyA8LSBkYXRhLmZyYW1lKHQgPSBpbnRlZ2VyKCksIGZvcmVjYXN0ID0gbnVtZXJpYygpLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpCiAgCiAgZm9yIChpIGluIG5faW5pdDoobnJvdyhkZiktMSkpIHsKICAgIHN0YXJ0X2luZGV4IDwtIG1heCgxLCBpIC0gMjkpCiAgICAjIFN1YmNvbmp1bnRvIGRlIGRhZG9zIHBhcmEgbW9kZWxhZ2VtCiAgICBkYXRhX2Zvcl9tb2RlbGluZyA8LSBkZiRwcmljZVtzdGFydF9pbmRleDppXQogICAgCiAgICAjIE9idMOpbSBhIHByw7N4aW1hIHByZXZpc8OjbwogICAgbmV4dF9mb3JlY2FzdCA8LSBhZGp1c3RfYW5kX2ZvcmVjYXN0KGRhdGFfZm9yX21vZGVsaW5nKQogICAgCiAgICAjIENvbnZlcnRlIGEgcHJldmlzw6NvIHBhcmEgdW0gdmFsb3IgbnVtw6lyaWNvCiAgICBuZXh0X2ZvcmVjYXN0X3ZhbHVlIDwtIGFzLm51bWVyaWMobmV4dF9mb3JlY2FzdCkKICAgIAogICAgIyBBZGljaW9uYSBhIHByZXZpc8OjbyBhbyBkYXRhZnJhbWUgZGUgcHJldmlzw7VlcwogICAgZGZfZm9yZWNhc3RzIDwtIHJiaW5kKGRmX2ZvcmVjYXN0cywgZGF0YS5mcmFtZSh0ID0gZGYkdFtpICsgMV0sIGZvcmVjYXN0ID0gbmV4dF9mb3JlY2FzdF92YWx1ZSkpCiAgfQogIAogIHJldHVybihkZl9mb3JlY2FzdHMpCn0KYGBgCgoKYGBge3IsIG1lc3NhZ2UgPSBGQUxTRSwgd2FybmluZyA9IEZBTFNFfQoKdGVtcCA9IGRmICU+JSBoZWFkKDEwMCkKCnRlbXBfZm9yZWNhc3RzID0gZ2VuZXJhdGVfZm9yZWNhc3RzKHRlbXApCgpkZl9maW5hbCA8LSB0ZW1wICU+JQogIGxlZnRfam9pbih0ZW1wX2ZvcmVjYXN0cywgYnkgPSAidCIpICU+JQogIGZpbHRlcighaXMubmEoZm9yZWNhc3QpKSAlPiUKICBtdXRhdGUoZm9yZWNhc3QgPSByb3VuZChmb3JlY2FzdCksCiAgICBhcmltYV9lcnJvX2Fic29sdXRvID0gcm91bmQoYWJzKHByaWNlIC0gZm9yZWNhc3QpLCBkaWdpdHMgPSAyKSkKCndyaXRlX2NzdihkZl9maW5hbCwgIi93b3Jrc3BhY2VzL2VzdGF0aXN0aWNhLnRjYy9kYXRhL3Jlc3VsdHMvYXJpbWEuY3N2IikKYGBgCgo=</div>
 
 
 
@@ -2032,7 +1876,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("europe_brent_petr.Rmd");
+  window.initializeSourceEmbed("auto_arima_petr.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

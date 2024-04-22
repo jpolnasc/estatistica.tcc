@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r, include = FALSE}
+library(tidyverse)
+```
+
+```{r}
+my_locale <- locale(decimal_mark = ",")
+# Lê o arquivo CSV com a configuração de locale definida
+df <- read_csv("../data/ebsp.csv", locale = my_locale)
+df$t <- as.Date(df$t, format="%b. %d, %Y", tz="UTC")
+
+write_csv(df, "../data/ebsp_clean.csv")
+```
+

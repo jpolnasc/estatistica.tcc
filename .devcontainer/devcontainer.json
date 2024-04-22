@@ -14,6 +14,13 @@
         "ms-toolsai.jupyter",
         "yhat.r-language",
         "RandomFractalsInc.vscode-data-preview",
-        "reditorsupport.r"
+        "reditorsupport.r",
+        "ms-python.vscode-pylance", 
+        "ms-python.flake8",
+        "ms-toolsai.vscode-jupyter-cell-tags", 
+        "ms-toolsai.jupyter", "ms-python.black-formatter"
+    ],
+    "runArgs": [
+        "--network=timescale-tcc_rede-tcc"
     ]
 }

@@ -1,0 +1,71 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, include = FALSE}
+library("tidyverse")
+library("forecast")
+```
+
+
+```{r, message = FALSE, warning = FALSE}
+df <- read_csv("/workspaces/estatistica.tcc/data/ebsp_clean.csv")
+df$t <- as.Date(df$t, format="%b. %d, %Y", tz="UTC")
+df %>% head()
+```
+
+```{r, message = FALSE, warning = FALSE}
+
+# Função para ajustar o modelo ARIMA e retornar a previsão
+adjust_and_forecast <- function(data) {
+  # Ajusta o modelo ARIMA
+  model_arima <- auto.arima(data)
+  # Faz a previsão para o próximo ponto
+  forecasted_value <- forecast(model_arima, h = 1)$mean
+  
+  return(forecasted_value)
+}
+```
+
+
+```{r, message = FALSE, warning = FALSE}
+generate_forecasts <- function(df) {
+  n_init <- 10
+  df_forecasts <- data.frame(t = integer(), forecast = numeric(), stringsAsFactors = FALSE)
+  
+  for (i in n_init:(nrow(df)-1)) {
+    start_index <- max(1, i - 29)
+    # Subconjunto de dados para modelagem
+    data_for_modeling <- df$price[start_index:i]
+    
+    # Obtém a próxima previsão
+    next_forecast <- adjust_and_forecast(data_for_modeling)
+    
+    # Converte a previsão para um valor numérico
+    next_forecast_value <- as.numeric(next_forecast)
+    
+    # Adiciona a previsão ao dataframe de previsões
+    df_forecasts <- rbind(df_forecasts, data.frame(t = df$t[i + 1], forecast = next_forecast_value))
+  }
+  
+  return(df_forecasts)
+}
+```
+
+
+```{r, message = FALSE, warning = FALSE}
+
+temp = df
+
+temp_forecasts = generate_forecasts(temp)
+
+df_final <- temp %>%
+  left_join(temp_forecasts, by = "t") %>%
+  filter(!is.na(forecast)) %>%
+  mutate(forecast = round(forecast),
+    arima_erro_absoluto = round(abs(price - forecast), digits = 2))
+
+write_csv(df_final, "/workspaces/estatistica.tcc/data/results/arima.csv")
+```
+
